@@ -52,7 +52,7 @@ function App() {
         <div className="rightSide flex flex-1 ml-10">
           <div className="grid flex-1 grid-cols-2 gap-5">
             {levels.map((item, key) => (
-              <div key={key}>{item.title}</div>
+              <GridItem key={key} item={item}/>
             ))}
           </div>
         </div>

@@ -1,4 +1,4 @@
-type LevelProps = {
+export type LevelProps = {
     title: string;
     color: string;
     icon: 'down' | 'up';
