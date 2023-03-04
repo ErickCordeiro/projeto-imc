@@ -1,19 +1,27 @@
 import { useState } from 'react';
 import powered from './assets/powered.png';
-import { levels, calculateImc } from './helpers/imc';
+import { levels, calculateImc, LevelProps } from './helpers/imc';
 import { GridItem } from './components/GridItem/GridItem';
+import arrowImage from './assets/leftarrow.png';
 
 function App() {
   const [heightField, setHeightField] = useState<number>(0);
   const [weightField, setWeighField] = useState<number>(0);
+  const [toShow, setToShow] = useState<LevelProps | null>(null);
 
   const handleCalculateButton = () => {
     if (!heightField || !weightField) {
       alert("Digite todos os campos!");
     }
 
-    const imcCalculate = calculateImc(heightField, weightField);
+    setToShow(calculateImc(heightField, weightField));
+  }
 
+
+  const handleBackButton = () => {
+    setToShow(null);
+    setHeightField(0);
+    setWeighField(0);
   }
 
   return (
@@ -35,6 +43,7 @@ function App() {
             placeholder="Digite a sua altura. Ex: 1.5 (em métros)"
             value={heightField > 0 ? heightField : ''}
             onChange={e => setHeightField(parseFloat(e.target.value))}
+            disabled={toShow ? true : false}
           />
 
           <input
@@ -43,6 +52,7 @@ function App() {
             placeholder="Digite a seu peso. Ex: 58.4 (em kg)"
             value={weightField > 0 ? weightField : ''}
             onChange={e => setWeighField(parseFloat(e.target.value))}
+            disabled={toShow ? true : false}
           />
 
           <button
@@ -50,11 +60,21 @@ function App() {
             onClick={handleCalculateButton}>Calcular</button>
         </div>
         <div className="rightSide flex flex-1 ml-10">
-          <div className="grid flex-1 grid-cols-2 gap-5">
-            {levels.map((item, key) => (
-              <GridItem key={key} item={item}/>
-            ))}
-          </div>
+          {!toShow &&
+            <div className="grid flex-1 grid-cols-2 gap-5">
+              {levels.map((item, key) => (
+                <GridItem key={key} item={item} />
+              ))}
+            </div>
+          }
+          {toShow &&
+            <div className='rightBig flex flex-1 relative'>
+              <div onClick={handleBackButton} className="rightArrow w-16 h-16 bg-cyan-600 hover:bg-cyan-800 flex justify-center items-center rounded-full absolute mt-40 -left-8 cursor-pointer">
+                <img src={arrowImage} alt="" className='w-8 rounded' />
+              </div>
+              <GridItem item={toShow} />
+            </div>
+          }
         </div>
       </div>
     </div>

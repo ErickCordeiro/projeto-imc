@@ -1,3 +1,13 @@
-Projeto Desenvolvido junto ao curso da B7Web para prática no conhecimento do ReactJS
+# Calculadora de IMC
 
-Projeto Calculo de IMC
+Projeto em React + TypeScript + TailwindCss fazendo uma calculadora de IMC.
+
+Projeto desenvolvido duranto o curso [B7Web](https://b7web.com.br).
+
+### Instalação
+
+- `npm install`
+
+### Executar o projeto
+
+- `npm run dev` 
